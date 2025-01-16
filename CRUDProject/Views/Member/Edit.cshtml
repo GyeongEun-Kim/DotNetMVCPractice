@@ -1,0 +1,117 @@
+﻿@using BusinessLayer.DTO
+@model MemberDTO
+
+@{
+    ViewData["Title"] = "신청자 수정";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>신청자 수정</title>
+    <style>
+        .btn {
+            background-color: lightskyblue;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        #radioGroup {
+            display: flex
+        }
+
+        .form-label {
+            display: inline-block;
+            width: 50px
+        }
+    </style>
+    <script>
+        function fnCheckValidation() {
+            var msg = '';
+            if ($('#Company').val() === '') {
+                msg += '회사명,';
+            }
+            if ($('#Grade').val() === '') {
+                msg += '직급,';
+            }
+            if ($('#Name').val() === '') {
+                msg += '이름,';
+            }
+            if (!$('input[name="Age"]:checked').val()) {
+                msg += '연령대,';
+            }
+
+
+            if (msg != '') {
+                msg = msg.slice(0, msg.length - 1) + '을(를) 입력하세요';
+                alert(msg);
+                return false;
+            }
+            else {
+                return true;
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+
+    <h4>신청자 수정</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" onclick="return fnCheckValidation();">
+                <div style="display:flex; flex-direction:column; width:291px">
+                    <div class="form-group">
+                        <span class="form-label">
+                            <label asp-for="Company">회사명</label>
+                        </span>
+                        <input asp-for="Company" />
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">
+                            <label asp-for="Grade">직급</label>
+                        </span>
+                        <input asp-for="Grade" />
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label">
+
+                            <label asp-for="Name">이름</label>
+                        </span>
+                        <input asp-for="Name" />
+                    </div>
+                    <div class="form-group" style="display:flex">
+                        <span class="form-label">
+                            <label>연령대</label>
+                        </span>
+                        <div id="radioGroup">
+                            <div>
+                                <label><input asp-for="Age" type="radio" value="20" /> 20대</label>
+                            </div>
+                            <div>
+                                <label><input asp-for="Age" type="radio" value="30" /> 30대</label>
+                            </div>
+                            <div>
+                                <label><input asp-for="Age" type="radio" value="40" /> 40대</label>
+                            </div>
+                            <div>
+                                <label><input asp-for="Age" type="radio" value="50" /> 50대</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:space-around">
+                        <input type="submit" value="수정" class="btn" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

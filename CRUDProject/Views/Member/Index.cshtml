@@ -1,0 +1,72 @@
+﻿@using BusinessLayer.DTO
+@model List<MemberDTO>
+
+@{
+    ViewData["Title"] = "신청자 목록";
+    Layout = null;
+}
+
+<style>
+    table {
+        border: 1px solid black;
+        text-align: center;
+        border-collapse: collapse;
+    }
+
+        table th, table td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+    th {
+        background-color: lightskyblue;
+    }
+
+    .btn {
+        background-color: lightskyblue;
+    }
+</style>
+
+<h4>신청자 목록</h4>
+<hr />
+<p>
+    <button type="button" class="btn" onclick="window.location.href='/Member/Create'">신청자 등록</button>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>순번</th>
+            <th>회사명</th>
+            <th>직급</th>
+            <th>이름</th>
+            <th>연령</th>
+            <th>명령</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Company</td>
+                <td>@item.Grade</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                </td>
+                <td>@item.Age</td>
+                <td>
+                    <form asp-action="Edit" method="get" style="display:inline;">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn">수정</button>
+                    </form>
+                    /
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?');" class="btn">삭제</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
